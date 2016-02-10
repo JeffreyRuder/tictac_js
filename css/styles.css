@@ -1,0 +1,6 @@
+.board-cell {
+  background-color: gray;
+  height: 300px;
+  width: 300px;
+  margin: 10px;
+}
