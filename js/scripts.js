@@ -87,6 +87,16 @@ Board.prototype.diagonalWinner = function() {
   return false;
 }
 
+Board.prototype.getUnmarkedSpaces = function() {
+  var unmarkedSpaces = []
+  for (var space of this.spaces) {
+    if (!space.isMarked) {
+      unmarkedSpaces.push(space);
+    }
+  }
+  return unmarkedSpaces;
+}
+
 function Game() {
   this.playerOne = new Player("X");
   this.playerTwo = new Player("O");
@@ -94,6 +104,7 @@ function Game() {
   this.turn = 1;
   this.playerTurn = this.playerOne;
   this.winner;
+  this.ai = 0;
 }
 
 Game.prototype.nextTurn = function () {
@@ -104,9 +115,17 @@ Game.prototype.nextTurn = function () {
     this.winner = "Draw";
   } else if (this.turn % 2 === 0) {
     this.playerTurn = this.playerTwo;
+    if (this.ai === 1) {
+      this.easyAIMove();
+    }
   } else {
     this.playerTurn = this.playerOne;
   }
+};
+
+Game.prototype.easyAIMove = function () {
+  var unmarkedSpaces = this.board.getUnmarkedSpaces();
+  return unmarkedSpaces[Math.floor(Math.random() * (unmarkedSpaces.length - 1))];
 };
 
 var threeInARow = function(arrayOfThreeSpaces) {

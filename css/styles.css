@@ -3,13 +3,13 @@ body {
 }
 
 .board-cell, .info {
-  height: 300px;
   width: 300px;
   margin: 10px;
   text-align: center;
 }
 
 .board-cell {
+  height: 300px;
   background-color: gray;
 }
 

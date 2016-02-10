@@ -42,6 +42,14 @@ describe('Board', function() {
     expect(testBoard.getSpace(1, 2).yCoordinate).to.equal(2);
   });
 
+  it("returns all unmarked spaces", function() {
+    var game = new Game;
+    game.board.getSpace(1, 1).markedBy(game.playerOne);
+    expect(game.board.getUnmarkedSpaces()).to.be.an("array");
+    expect(game.board.getUnmarkedSpaces().length).to.equal(8);
+  })
+
+
   it("should be able to tell if a player has three horizontal marks in a row", function() {
     var emptyBoard = new Board();
     var fullBoard = new Board();
@@ -136,4 +144,13 @@ describe('Game', function() {
     testGame.nextTurn();
     expect(testGame.winner).to.equal("Draw");
   });
+
+  it("has an ai that chooses an empty space on player 2's turn", function() {
+    var testGame = new Game();
+    testGame.ai = 1;
+    testGame.board.getSpace(1, 1).markedBy(testGame.playerOne);
+    testGame.nextTurn();
+    expect(testGame.board.getUnmarkedSpaces().length).to.equal(7);
+  });
+
 });
