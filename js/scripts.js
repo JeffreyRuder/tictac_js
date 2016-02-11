@@ -135,16 +135,19 @@ Game.prototype.hardAIMove = function() {
   var twoHorizontal = this.checkTwoHorizontal();
   var twoVertical = this.checkTwoVertical();
   var twoDiagonal = this.checkTwoDiagonal();
-  if (fork) {
-    return fork;
-  } else if (twoHorizontal) {
+  var checkCorners = this.checkCorners();
+  if (twoHorizontal) {
     return twoHorizontal;
   } else if (twoVertical) {
     return twoVertical;
   } else if (twoDiagonal) {
     return twoDiagonal;
+  } else if (fork) {
+      return fork;
   } else if (this.checkCenter()) {
     return this.board.getSpace(2, 2);
+  } else if (checkCorners) {
+    return checkCorners;
   } else {
     return this.easyAIMove();
   }
@@ -155,6 +158,17 @@ Game.prototype.checkCenter = function() {
   return this.board.getUnmarkedSpaces().some(elem => elem === this.board.getSpace(2, 2)) ? true : false;
 };
 
+Game.prototype.checkCorners = function() {
+  var corners = [this.board.getSpace(1,1),
+                 this.board.getSpace(3,3),
+                 this.board.getSpace(1,3),
+                 this.board.getSpace(3,1)]
+  for(var corner of corners) {
+    if (!corner.mark) {
+      return corner;
+    }
+  }
+}
 
 
 Game.prototype.checkFork = function() {
