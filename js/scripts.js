@@ -132,10 +132,16 @@ Game.prototype.easyAIMove = function () {
 
 Game.prototype.hardAIMove = function() {
   var fork = this.checkFork()
+  var twoHorizontal = this.checkTwoHorizontal();
+  var twoVertical = this.checkTwoVertical();
   if (this.checkCenter()) {
     return this.board.getSpace(2, 2);
-  } else if (fork !== false) {
+  } else if (fork) {
     return fork;
+  } else if (twoHorizontal) {
+    return twoHorizontal;
+  } else if (twoVertical) {
+    return twoVertical;
   } else {
     return this.easyAIMove();
   }
@@ -163,6 +169,8 @@ Game.prototype.checkFork = function() {
         return side;
       }
     }
+
+  //check the sides for a fork
   } else if((!unmarkedSpaces.includes(sides[0]) && !unmarkedSpaces.includes(sides[1]) && sides[0].mark === sides[1].mark) ||
             (!unmarkedSpaces.includes(sides[1]) && !unmarkedSpaces.includes(sides[2]) && sides[1].mark === sides[2].mark) ||
             (!unmarkedSpaces.includes(sides[2]) && !unmarkedSpaces.includes(sides[3]) && sides[2].mark === sides[3].mark) ||
@@ -172,6 +180,42 @@ Game.prototype.checkFork = function() {
       if (unmarkedSpaces.includes(corner) && sides.some(elem => !unmarkedSpaces.includes(elem) && corner.isAdjacent(elem))) {
         return corner;
       }
+    }
+  }
+  return false;
+}
+
+Game.prototype.checkTwoHorizontal = function() {
+  var unmarkedSpaces = this.board.getUnmarkedSpaces();
+  for (var y = 1; y <= 3; y ++) {
+    var thisRow = []
+    for (var x = 1; x <= 3; x++) {
+      thisRow.push(this.board.getSpace(x, y));
+    }
+    if (thisRow[0].mark === thisRow[1].mark && !unmarkedSpaces.includes(thisRow[0]) && unmarkedSpaces.includes(thisRow[2])) {
+      return thisRow[2];
+    } else if (thisRow[0].mark === thisRow[2].mark && !unmarkedSpaces.includes(thisRow[0])  && unmarkedSpaces.includes(thisRow[1])) {
+      return thisRow[1];
+    } else if (thisRow[1].mark === thisRow[2].mark && !unmarkedSpaces.includes(thisRow[1])  && unmarkedSpaces.includes(thisRow[0])) {
+      return thisRow[0];
+    }
+  }
+  return false;
+}
+
+Game.prototype.checkTwoVertical= function() {
+  var unmarkedSpaces = this.board.getUnmarkedSpaces();
+  for (var x = 1; x <= 3; x++) {
+    var thisColumn = []
+    for (var y = 1; y <= 3; y ++) {
+      thisColumn.push(this.board.getSpace(x, y));
+    }
+    if (thisColumn[0].mark === thisColumn[1].mark && !unmarkedSpaces.includes(thisColumn[0]) && unmarkedSpaces.includes(thisColumn[2])) {
+      return thisColumn[2];
+    } else if (thisColumn[0].mark === thisColumn[2].mark && !unmarkedSpaces.includes(thisColumn[0])  && unmarkedSpaces.includes(thisColumn[1])) {
+      return thisColumn[1];
+    } else if (thisColumn[1].mark === thisColumn[2].mark && !unmarkedSpaces.includes(thisColumn[1])  && unmarkedSpaces.includes(thisColumn[0])) {
+      return thisColumn[0];
     }
   }
   return false;
