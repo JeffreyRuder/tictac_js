@@ -1,17 +1,11 @@
 $(function() {
   var game = new Game;
-  var gameOn = true;
 
   $(".player-type").change(function() {
     game.ai = parseInt($(this).val());
   })
 
   $(".board-cell").click(function(event) {
-    //Check to see if game is over already
-    if (!gameOn) {
-      return;
-    }
-
     //Identify clicked space
     var cellId = $(this).attr('id').split("A");
     var cellX = parseInt(cellId[0]);
@@ -30,13 +24,13 @@ $(function() {
       //Advance turn
       game.nextTurn();
 
-      //Check for winner and update DOM
+      //Check for winner and update DOM (if game ends, unbind click listener)
       if (game.winner && game.winner !== "Draw") {
         $(".turn-info").empty().append("<h2>Player " + game.winner.mark + " wins!</h2>");
-        gameOn = false;
+        $(".board-cell").unbind("click");
       } else if (game.winner) {
         $(".turn-info").empty().append("<h2>It's a draw!</h2>");
-        gameOn = false;
+        $(".board-cell").unbind("click");
       } else {
         $(".turn-info").empty().append("<h2>Player " + game.playerTurn.mark + "'s turn!</h2>");
       }

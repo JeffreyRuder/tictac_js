@@ -4,13 +4,11 @@ body {
 
 .board-cell, .info {
   width: 300px;
-  margin: 10px;
   text-align: center;
 }
 
 .board-cell {
   height: 300px;
-  background-color: gray;
 }
 
 .letter {
@@ -32,4 +30,14 @@ body {
 
 #reset {
   margin-top: 20px;
+}
+
+.middle-row {
+  border-top: 4px solid black;
+  border-bottom: 4px solid black;
+}
+
+.middle-column {
+  border-right: 4px solid black;
+  border-left: 4px solid black;
 }
