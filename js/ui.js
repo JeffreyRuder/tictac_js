@@ -1,9 +1,9 @@
 $(function() {
   var game = new Game;
   var players = [game.playerOne, game.playerTwo];
-  game.playerTurn = players[Math.floor(Math.random() * 2)];
 
   $(".player-type").change(function() {
+    game.playerTurn = players[Math.floor(Math.random() * 2)];
     game.ai = parseInt($(this).val());
     if (game.turn === 1) {
       if (game.playerTurn === game.playerTwo && game.ai !== 0) {
