@@ -117,6 +117,8 @@ Game.prototype.nextTurn = function () {
     this.playerTurn = this.playerTwo;
     if (this.ai === 1) {
       this.easyAIMove();
+    } else if (this.ai === 2) {
+      this.hardAIMove();
     }
   } else {
     this.playerTurn = this.playerOne;
@@ -127,6 +129,58 @@ Game.prototype.easyAIMove = function () {
   var unmarkedSpaces = this.board.getUnmarkedSpaces();
   return unmarkedSpaces[Math.floor(Math.random() * (unmarkedSpaces.length - 1))];
 };
+
+Game.prototype.hardAIMove = function() {
+  var fork = this.checkFork()
+  if (this.checkCenter()) {
+    return this.board.getSpace(2, 2);
+  } else if (fork !== false) {
+    return fork;
+  } else {
+    return this.easyAIMove();
+  }
+};
+
+Game.prototype.checkFork = function() {
+  var sides = [this.board.getSpace(1,2),
+               this.board.getSpace(2,3),
+               this.board.getSpace(3,2),
+               this.board.getSpace(2,1)]
+
+  var corners = [this.board.getSpace(1,1),
+                 this.board.getSpace(3,3),
+                 this.board.getSpace(1,3),
+                 this.board.getSpace(3,1)]
+
+  var unmarkedSpaces = this.board.getUnmarkedSpaces();
+
+  //check diagonals for a fork
+  if((!unmarkedSpaces.includes(corners[0]) && !unmarkedSpaces.includes(corners[1]) && corners[0].mark === corners[1].mark) ||
+     (!unmarkedSpaces.includes(corners[2]) && !unmarkedSpaces.includes(corners[3]) && corners[2].mark === corners[3].mark))
+  {
+    for (var side of sides) {
+      if (unmarkedSpaces.includes(side)) {
+        return side;
+      }
+    }
+  } else if((!unmarkedSpaces.includes(sides[0]) && !unmarkedSpaces.includes(sides[1]) && sides[0].mark === sides[1].mark) ||
+            (!unmarkedSpaces.includes(sides[1]) && !unmarkedSpaces.includes(sides[2]) && sides[1].mark === sides[2].mark) ||
+            (!unmarkedSpaces.includes(sides[2]) && !unmarkedSpaces.includes(sides[3]) && sides[2].mark === sides[3].mark) ||
+            (!unmarkedSpaces.includes(sides[3]) && !unmarkedSpaces.includes(sides[0]) && sides[3].mark === sides[0].mark))
+  {
+    for (var corner of corners) {
+      if (unmarkedSpaces.includes(corner) && sides.some(elem => !unmarkedSpaces.includes(elem) && corner.isAdjacent(elem))) {
+        return corner;
+      }
+    }
+  }
+  return false;
+}
+
+Game.prototype.checkCenter = function() {
+  return this.board.getUnmarkedSpaces().some(elem => elem === this.board.getSpace(2, 2)) ? true : false;
+};
+
 
 var threeInARow = function(arrayOfThreeSpaces) {
   if (arrayOfThreeSpaces[0].mark &&

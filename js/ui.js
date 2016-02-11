@@ -40,6 +40,10 @@ $(function() {
         var aiSpace = game.easyAIMove();
         var spaceString = ".board-cell#" + aiSpace.xCoordinate + "A" + aiSpace.yCoordinate;
         $(spaceString).trigger("click");
+      } else if (game.ai === 2 && game.playerTurn === game.playerTwo) {
+        var aiSpace = game.hardAIMove();
+        var spaceString = ".board-cell#" + aiSpace.xCoordinate + "A" + aiSpace.yCoordinate;
+        $(spaceString).trigger("click");
       }
     }
   });
