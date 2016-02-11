@@ -34,11 +34,9 @@ $(function() {
       if (game.winner && game.winner !== "Draw") {
         $(".turn-info").empty().append("<h2>Player " + game.winner.mark + " wins!</h2>");
         gameOn = false;
-        $(".reset-button").show();
       } else if (game.winner) {
         $(".turn-info").empty().append("<h2>It's a draw!</h2>");
         gameOn = false;
-        $(".reset-button").show();
       } else {
         $(".turn-info").empty().append("<h2>Player " + game.playerTurn.mark + "'s turn!</h2>");
       }

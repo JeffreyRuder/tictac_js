@@ -29,3 +29,7 @@ body {
 .turn-info {
   text-align: center;
 }
+
+#reset {
+  margin-top: 20px;
+}
