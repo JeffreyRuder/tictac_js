@@ -111,7 +111,7 @@ Game.prototype.nextTurn = function () {
   this.turn += 1;
   if (this.board.horizontalWinner() || this.board.verticalWinner() || this.board.diagonalWinner()) {
     this.winner = (this.board.horizontalWinner() || this.board.verticalWinner() || this.board.diagonalWinner());
-  } else if (this.turn > 9) {
+  } else if (this.board.getUnmarkedSpaces().length === 0) {
     this.winner = "Draw";
   } else if (this.turn % 2 === 0) {
     this.playerTurn = this.playerTwo;
