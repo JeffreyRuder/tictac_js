@@ -7,13 +7,13 @@ $(function() {
   })
 
   $(".board-cell").click(function(event) {
+    //Check to see if game is over already
     if (!gameOn) {
       return;
     }
 
-    //Identify space
+    //Identify clicked space
     var cellId = $(this).attr('id').split("A");
-    console.log(cellId);
     var cellX = parseInt(cellId[0]);
     var cellY = parseInt(cellId[1]);
     thisSpace = game.board.getSpace(cellX, cellY);
@@ -43,7 +43,7 @@ $(function() {
         $(".turn-info").empty().append("<h2>Player " + game.playerTurn.mark + "'s turn!</h2>");
       }
 
-      //AI player simulates a click
+      //If playing AI, AI player simulates a click
       if (game.ai === 1 && game.playerTurn === game.playerTwo) {
         var aiSpace = game.easyAIMove();
         var spaceString = ".board-cell#" + aiSpace.xCoordinate + "A" + aiSpace.yCoordinate;

@@ -1,25 +1,31 @@
-# addressBook
+# Tic Tac Toe
 
-##### Epicodus Section:  JavaScript OO - Address Book
-
-#### By Epicodus Lessons
+#### By Jeffrey Ruder & Chris Siems
 
 ## Description
 
-This application is a demonstration of constructors and prototypes using JavaScript to create a simple Address Book app.
+Uses constructors and prototypes to manage objects required for a Tic Tac Toe game.
+
+## To Do
+
+* There is only an easy AI that chooses moves randomly. Implement a hard AI that uses proper Tic Tac Toe strategy.
+* Human always has to go first.
+* Switching opponent type from human to AI on Player O's turn does not take effect until the human Player O has made a move.
+* There are several opportunities for code refactoring:
+  * Victory condition checks in `Game.prototype.nextTurn()` could be combined into a single function.
 
 ## Setup
 
-Install addressBook by cloning this repository.
+Install Tic Tac Toe by cloning this repository.
 
 ## Technologies Used
 
-Application: JavaScript and jQuery
-Testing:  Mocha and Chai
+* Application: JavaScript and jQuery
+* Testing:  Mocha and Chai
 
 ### Legal
 
-Copyright (c) 2015 **Epicodus**
+Copyright (c) 2015 **Jeffrey Ruder & Chris Siems**
 
 This software is licensed under the MIT license.
 

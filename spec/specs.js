@@ -150,6 +150,8 @@ describe('Game', function() {
     testGame.ai = 1;
     testGame.board.getSpace(1, 1).markedBy(testGame.playerOne);
     testGame.nextTurn();
+    var aiSpace = testGame.easyAIMove();
+    testGame.board.getSpace(aiSpace.xCoordinate, aiSpace.yCoordinate).markedBy(testGame.playerTwo);
     expect(testGame.board.getUnmarkedSpaces().length).to.equal(7);
   });
 
