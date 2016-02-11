@@ -130,6 +130,26 @@ Game.prototype.easyAIMove = function () {
   return unmarkedSpaces[Math.floor(Math.random() * (unmarkedSpaces.length - 1))];
 };
 
+Game.prototype.mediumAIMove = function () {
+  var twoHorizontal = this.checkTwoHorizontal();
+  var twoVertical = this.checkTwoVertical();
+  var twoDiagonal = this.checkTwoDiagonal();
+  var checkCorners = this.checkCorners();
+  if (twoHorizontal) {
+    return twoHorizontal;
+  } else if (twoVertical) {
+    return twoVertical;
+  } else if (twoDiagonal) {
+    return twoDiagonal;
+  } else if (this.checkCenter()) {
+    return this.board.getSpace(2, 2);
+  } else if (checkCorners) {
+    return checkCorners;
+  } else {
+    return this.easyAIMove();
+  }
+};
+
 Game.prototype.hardAIMove = function() {
   var fork = this.checkFork()
   var twoHorizontal = this.checkTwoHorizontal();

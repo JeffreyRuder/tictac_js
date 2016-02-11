@@ -155,15 +155,4 @@ describe('Game', function() {
     expect(testGame.board.getUnmarkedSpaces().length).to.equal(7);
   });
 
-  it("has an ai that blocks two horizontally", function() {
-    var testGame = new Game();
-    testGame.ai = 2;
-    testGame.board.getSpace(1, 1).markedBy(testGame.playerOne);
-    testGame.board.getSpace(2, 1).markedBy(testGame.playerOne);
-    testGame.nextTurn();
-    var aiSpace = testGame.easyAIMove();
-    testGame.board.getSpace(aiSpace.xCoordinate, aiSpace.yCoordinate).markedBy(testGame.playerTwo);
-    expect(testGame.winner).to.equal("O");
-  });
-
 });
