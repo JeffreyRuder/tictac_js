@@ -1,8 +1,28 @@
 $(function() {
   var game = new Game;
+  var players = [game.playerOne, game.playerTwo];
 
   $(".player-type").change(function() {
+    game.playerTurn = players[Math.floor(Math.random() * 2)];
     game.ai = parseInt($(this).val());
+    if (game.turn === 1) {
+      if (game.playerTurn === game.playerTwo && game.ai !== 0) {
+        game.nextTurn();
+        if (game.ai === 1 && game.playerTurn === game.playerTwo) {
+          var aiSpace = game.easyAIMove();
+          var spaceString = ".board-cell#" + aiSpace.xCoordinate + "A" + aiSpace.yCoordinate;
+          $(spaceString).trigger("click");
+        } else if (game.ai === 2 && game.playerTurn === game.playerTwo) {
+          var aiSpace = game.mediumAIMove();
+          var spaceString = ".board-cell#" + aiSpace.xCoordinate + "A" + aiSpace.yCoordinate;
+          $(spaceString).trigger("click");
+        } else if (game.ai === 3 && game.playerTurn === game.playerTwo) {
+          var aiSpace = game.hardAIMove();
+          var spaceString = ".board-cell#" + aiSpace.xCoordinate + "A" + aiSpace.yCoordinate;
+          $(spaceString).trigger("click");
+        }
+      }
+    }
   })
 
   $(".board-cell").click(function(event) {
@@ -38,6 +58,14 @@ $(function() {
       //If playing AI, AI player simulates a click
       if (game.ai === 1 && game.playerTurn === game.playerTwo) {
         var aiSpace = game.easyAIMove();
+        var spaceString = ".board-cell#" + aiSpace.xCoordinate + "A" + aiSpace.yCoordinate;
+        $(spaceString).trigger("click");
+      } else if (game.ai === 2 && game.playerTurn === game.playerTwo) {
+        var aiSpace = game.mediumAIMove();
+        var spaceString = ".board-cell#" + aiSpace.xCoordinate + "A" + aiSpace.yCoordinate;
+        $(spaceString).trigger("click");
+      } else if (game.ai === 3 && game.playerTurn === game.playerTwo) {
+        var aiSpace = game.hardAIMove();
         var spaceString = ".board-cell#" + aiSpace.xCoordinate + "A" + aiSpace.yCoordinate;
         $(spaceString).trigger("click");
       }

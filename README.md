@@ -8,9 +8,6 @@ Uses constructors and prototypes to manage objects required for a Tic Tac Toe ga
 
 ## To Do
 
-* There is only an easy AI that chooses moves randomly. Implement a hard AI that uses proper Tic Tac Toe strategy.
-* Human always has to go first.
-* Switching opponent type from human to AI on Player O's turn does not take effect until the human Player O has made a move.
 * There are several opportunities for code refactoring:
   * Victory condition checks in `Game.prototype.nextTurn()` could be combined into a single function.
 
